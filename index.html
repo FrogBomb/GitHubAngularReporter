@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Github 7-Day Angular Recap</title>
+    <script src="./lib/reporter.js"></script>
+    <script src="./lib/helperFuncs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+    <link rel="stylesheet" href="./styles/baseStyle.css">
+</head>
+<body>
+    <div class="panel">
+        <button id="report-button">Get Issues From Last 7 Days</button>
+        <div id="report-container"></div>
+    </div>
+    
+    <script id="issue-template" type="text/x-handlebars-template">
+        {{#each pageNav}}
+            <button class="nav-button" id="{{rel}}" onclick="navButtonPress('{{link}}')">{{rel}}</button>
+        {{/each}}
+        <table>
+            <thead>
+                <th>Issue Number</th>
+                <th>Title</th>
+                <th>User</th>
+                <th>State</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Body</th>
+            </thead>
+            <tbody>
+                {{#each issues}}
+                <tr>
+                    <td class="issue-number">{{number}}</td>
+                    <td class="issue-title">{{title}}</td>
+                    <td class="issue-user">{{#if user.site_admin}}<span class="admin">ADMIN</span>{{/if}}<a href="{{user.html_url}}">{{user.login}}</a></td>
+                    <td class="issue-state">{{state}}</td>
+                    <td class="issue-created">{{created_at}}</td>
+                    <td class="issue-updated">{{updated_at}}</td>
+                    <td class="issue-body">{{{body_html}}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </script>
+    
+    <script src="main.js"></script>
+</body>
+</html>
